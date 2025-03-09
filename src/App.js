@@ -1,10 +1,11 @@
-import React, { useEffect, useReducer } from "react";
+import React, { createContext, useEffect, useReducer } from "react";
 import Header from "./component/Header/Header";
 import Main from "./component/Main/Main";
 import "./app.css";
 import Loading from "./component/Loading/Loading";
 import Errore from "./component/Errore/Errore";
 import StartScreen from "./component/StartScreen/StartScreen";
+import Question from "./component/Question/Question";
 const initialState = {
   question: [],
   status: "loading",
@@ -15,14 +16,18 @@ function reducer(state, action) {
       return { ...state, question: action.payload, status: "ready" };
     case "dataFeild":
       return { ...state, question: action.payload, status: "error" };
+    case "start":
+      return { ...state, status: "active" };
     default:
       return;
   }
 }
+export const StateContext = createContext();
+
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { question, status } = state;
-  const totalQuestion=question.length
+  const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
       try {
@@ -41,11 +46,16 @@ const App = () => {
   return (
     <>
       <Header />
-      <Main>
-        {status === "loading" && <Loading />}
-        {status === "error" && <Errore />}
-        {status === "ready" && <StartScreen totalQuestion={totalQuestion} />}
-      </Main>
+      <StateContext.Provider value={{question,status,dispatch,totalQuestion}}>
+        <Main>
+          {status === "loading" && <Loading />}
+          {status === "error" && <Errore />}
+          {status === "ready" && (
+            <StartScreen />
+          )}
+          {status === "active" && <Question question={question} />}
+        </Main>
+      </StateContext.Provider>
     </>
   );
 };
