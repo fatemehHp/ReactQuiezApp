@@ -1,0 +1,62 @@
+
+.startButton {
+    padding: 5px 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: #ff9800;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+    max-width: 200px;
+  }
+  
+  .startButton:hover {
+    background: #e68900;
+    box-shadow: 0 0 25px rgba(255, 152, 0, 1);
+    transform: scale(1.1);
+  }
+  
+  .description {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+    animation: glow 1.5s infinite alternate;
+    margin: 50px 0px;
+  }
+  .infoText {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    letter-spacing: 1px;
+    color: #fff;
+    text-align: center;
+    animation: glowEffect 1.5s infinite alternate;
+    margin: 50px 0;
+  }
+  
+  /* افکت درخشش */
+  @keyframes glowEffect {
+    0% {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+      text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+    }
+  }
+  
+  
+  @keyframes glow {
+    from {
+      color: #ffeb3b;
+      text-shadow: 0 0 10px rgba(255, 235, 59, 0.8);
+    }
+  
+    to {
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 235, 59, 1);
+    }
+  }
+  
