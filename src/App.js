@@ -9,6 +9,7 @@ import Question from "./component/Question/Question";
 const initialState = {
   question: [],
   status: "loading",
+  indexActiveQuestion:0
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -26,7 +27,7 @@ export const StateContext = createContext();
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status } = state;
+  const { question, status,indexActiveQuestion } = state;
   const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
@@ -46,14 +47,14 @@ const App = () => {
   return (
     <>
       <Header />
-      <StateContext.Provider value={{question,status,dispatch,totalQuestion}}>
+      <StateContext.Provider value={{question,status,dispatch,totalQuestion,indexActiveQuestion}}>
         <Main>
           {status === "loading" && <Loading />}
           {status === "error" && <Errore />}
           {status === "ready" && (
             <StartScreen />
           )}
-          {status === "active" && <Question question={question} />}
+          {status === "active" && <Question />}
         </Main>
       </StateContext.Provider>
     </>
