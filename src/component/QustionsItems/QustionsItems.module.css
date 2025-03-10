@@ -1,40 +1,55 @@
-.options {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .option {
-    background: #222;
-    padding: 12px;
-    border-radius: 8px;
-    margin: 8px 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid white;
-  }
-  
-  /* افکت هاور برای گزینه‌ها */
-  .option:hover {
-    background: white;
-    color: black;
-    transform: scale(1.05);
-    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
-  }
-    /* گزینه صحیح */
-    .correct {
-        background: #4caf50 !important; /* سبز */
-        color: white !important;
-        box-shadow: 0px 0px 15px rgba(76, 175, 80, 0.7);
-      }
-      
-      /* گزینه‌های غلط */
-      .wrong {
-        background: #d32f2f !important; /* قرمز */
-        color: white !important;
-        box-shadow: 0px 0px 15px rgba(211, 47, 47, 0.7);
-        opacity: 0.6;
-      }
-      
+.option {
+  background: #222;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid white;
+  list-style: none;
+  padding: 15px;
+}
+
+/* افکت هاور برای گزینه‌ها */
+.option:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+}
+
+/* گزینه صحیح */
+.correct {
+  background: #4caf50 !important;
+  /* سبز */
+  color: white !important;
+  box-shadow: 0px 0px 15px rgba(76, 175, 80, 0.7);
+ 
+}
+
+/* گزینه‌های غلط */
+.wrong {
+  background: #d32f2f !important;
+  /* قرمز */
+  color: white !important;
+  box-shadow: 0px 0px 15px rgba(211, 47, 47, 0.7);
+  opacity: 0.6;
+}
+.disable{
+  pointer-events: none; /* غیرفعال کردن کلیک */
+  opacity: 0.5; /* کم‌رنگ کردن */
+  background: #222;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+  border: 1px solid white;
+  list-style: none;
+  padding: 15px;
+}

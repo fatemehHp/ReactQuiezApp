@@ -9,8 +9,8 @@ const Question = () => {
       <h2 className={styles.question}>{question[indexActiveQuestion].question} </h2>
       <ul className={styles.options}>
         {
-         question[indexActiveQuestion].options.map((options)=>{
-           return <QustionsItems options={options} key={options}/>
+         question[indexActiveQuestion].options.map((options,index)=>{
+           return <QustionsItems options={options} key={options} index={index} correctanswer={question[indexActiveQuestion].correctOption}/>
          })
         }
 

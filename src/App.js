@@ -9,7 +9,9 @@ import Question from "./component/Question/Question";
 const initialState = {
   question: [],
   status: "loading",
-  indexActiveQuestion:0
+  indexActiveQuestion:0,
+  answer:null,
+  points:0
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -19,6 +21,11 @@ function reducer(state, action) {
       return { ...state, question: action.payload, status: "error" };
     case "start":
       return { ...state, status: "active" };
+    case "selectItem":
+     const isCorrect= state.question[state.indexActiveQuestion].correctOption
+
+      return { ...state, answer:action.payload ,points:isCorrect===action.payload ?state.points+state.question[state.indexActiveQuestion].points:state.points};
+
     default:
       return;
   }
@@ -27,7 +34,7 @@ export const StateContext = createContext();
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status,indexActiveQuestion } = state;
+  const { question, status,indexActiveQuestion,answer } = state;
   const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
@@ -47,7 +54,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <StateContext.Provider value={{question,status,dispatch,totalQuestion,indexActiveQuestion}}>
+      <StateContext.Provider value={{question,status,dispatch,totalQuestion,indexActiveQuestion,answer}}>
         <Main>
           {status === "loading" && <Loading />}
           {status === "error" && <Errore />}
