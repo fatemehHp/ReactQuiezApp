@@ -4,7 +4,6 @@ import { StateContext } from "../../App";
 
 const QustionsItems = ({ options ,index,correctanswer}) => {
   const {dispatch,answer}=useContext(StateContext)
-  const isCorrectAnswer= correctanswer=== index 
   
 
   return <li className={`${answer ||answer===0?styles.disable:styles.option} ${answer ||answer===0 ? (correctanswer=== index ? styles.correct : styles.wrong) : ""}`}
