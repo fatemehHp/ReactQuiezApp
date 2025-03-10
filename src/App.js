@@ -6,10 +6,11 @@ import Loading from "./component/Loading/Loading";
 import Errore from "./component/Errore/Errore";
 import StartScreen from "./component/StartScreen/StartScreen";
 import Question from "./component/Question/Question";
+import Progress from "./component/Progress/Progress";
 const initialState = {
   question: [],
   status: "loading",
-  indexActiveQuestion: 0,
+  indexActiveQuestion: 14,
   answer: null,
   points: 0,
 };
@@ -22,7 +23,11 @@ function reducer(state, action) {
     case "start":
       return { ...state, status: "active" };
     case "nextQuestion":
-      return { ...state, indexActiveQuestion:state.indexActiveQuestion+1,answer:null};
+      return {
+        ...state,
+        indexActiveQuestion: state.indexActiveQuestion + 1,
+        answer: null,
+      };
     case "selectItem":
       const isCorrect = state.question[state.indexActiveQuestion].correctOption;
       return {
@@ -41,7 +46,7 @@ export const StateContext = createContext();
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status, indexActiveQuestion, answer } = state;
+  const { question, status, indexActiveQuestion, answer,points } = state;
   const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
@@ -60,7 +65,9 @@ const App = () => {
   }, []);
   return (
     <>
-      <Header />
+      <Header>
+     
+      </Header>
       <StateContext.Provider
         value={{
           question,
@@ -69,9 +76,12 @@ const App = () => {
           totalQuestion,
           indexActiveQuestion,
           answer,
+          points
         }}
       >
         <Main>
+   <Progress />
+
           {status === "loading" && <Loading />}
           {status === "error" && <Errore />}
           {status === "ready" && <StartScreen />}

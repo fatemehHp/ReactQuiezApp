@@ -3,7 +3,7 @@ import styles from "./Question.module.css";
 import { StateContext } from "../../App";
 import QustionsItems from "../QustionsItems/QustionsItems";
 const Question = () => {
-  const { question, indexActiveQuestion,answer,dispatch } = useContext(StateContext);
+  const { question, indexActiveQuestion,answer,dispatch,totalQuestion } = useContext(StateContext);
   return (
     <div className={styles.container}>
       <h2 className={styles.question}>
@@ -22,7 +22,7 @@ const Question = () => {
         })}
       </ul>
       {
-        answer || answer===0?<button className={styles.nextButton} onClick={()=>dispatch({type:"nextQuestion"})}>Next</button>:null
+        answer || answer===0?<button className={styles.nextButton} onClick={()=>dispatch({type:"nextQuestion"})}>{totalQuestion===15?"Finish":"NEXT"}</button>:null
       }
       
     </div>
