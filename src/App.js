@@ -8,12 +8,14 @@ import StartScreen from "./component/StartScreen/StartScreen";
 import Question from "./component/Question/Question";
 import Progress from "./component/Progress/Progress";
 import FinishQuiz from "./component/FinishScreen/FinishScreen";
+import Timer from "./component/Timer/Timer";
 const initialState = {
   question: [],
   status: "loading",
-  indexActiveQuestion: 14,
+  indexActiveQuestion: 0,
   answer: null,
   points: 0,
+  secondsReminding: 30,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -27,11 +29,12 @@ function reducer(state, action) {
       return { ...state, status: "finish" };
     case "reStart":
       return {
-       ...state,
+        ...state,
         status: "ready",
         indexActiveQuestion: 0,
         answer: null,
         points: 0,
+        secondsReminding:10
       };
     case "nextQuestion":
       return {
@@ -50,6 +53,8 @@ function reducer(state, action) {
             ? state.points + state.question[state.indexActiveQuestion].points
             : state.points,
       };
+    case "secendReminding":
+      return { ...state, secondsReminding: state.secondsReminding - 1 ,status:state.secondsReminding===0?"finish":state.status};
     default:
       return;
   }
@@ -58,7 +63,7 @@ export const StateContext = createContext();
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status, indexActiveQuestion, answer, points } = state;
+  const { question, status, indexActiveQuestion, answer, points,secondsReminding } = state;
   const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
@@ -87,6 +92,7 @@ const App = () => {
           indexActiveQuestion,
           answer,
           points,
+          secondsReminding
         }}
       >
         <Main>
@@ -95,7 +101,11 @@ const App = () => {
           {status === "loading" && <Loading />}
           {status === "error" && <Errore />}
           {status === "ready" && <StartScreen />}
-          {status === "active" && <Question />}
+          {status === "active" && (
+            <>
+              <Question /> <Timer />
+            </>
+          )}
           {status === "finish" && <FinishQuiz />}
         </Main>
       </StateContext.Provider>
