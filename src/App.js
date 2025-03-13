@@ -15,7 +15,7 @@ const initialState = {
   indexActiveQuestion: 0,
   answer: null,
   points: 0,
-  secondsReminding: 30,
+  secondsReminding: 60,
 };
 function reducer(state, action) {
   switch (action.type) {
