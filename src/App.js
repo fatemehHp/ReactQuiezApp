@@ -7,6 +7,7 @@ import Errore from "./component/Errore/Errore";
 import StartScreen from "./component/StartScreen/StartScreen";
 import Question from "./component/Question/Question";
 import Progress from "./component/Progress/Progress";
+import FinishQuiz from "./component/FinishScreen/FinishScreen";
 const initialState = {
   question: [],
   status: "loading",
@@ -22,11 +23,22 @@ function reducer(state, action) {
       return { ...state, question: action.payload, status: "error" };
     case "start":
       return { ...state, status: "active" };
+    case "finish":
+      return { ...state, status: "finish" };
+    case "reStart":
+      return {
+       ...state,
+        status: "ready",
+        indexActiveQuestion: 0,
+        answer: null,
+        points: 0,
+      };
     case "nextQuestion":
       return {
         ...state,
         indexActiveQuestion: state.indexActiveQuestion + 1,
         answer: null,
+        status: state.indexActiveQuestion === 15 ? "finish" : state.status,
       };
     case "selectItem":
       const isCorrect = state.question[state.indexActiveQuestion].correctOption;
@@ -46,7 +58,7 @@ export const StateContext = createContext();
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status, indexActiveQuestion, answer,points } = state;
+  const { question, status, indexActiveQuestion, answer, points } = state;
   const totalQuestion = question.length;
   useEffect(function () {
     async function fetchData() {
@@ -65,9 +77,7 @@ const App = () => {
   }, []);
   return (
     <>
-      <Header>
-     
-      </Header>
+      <Header></Header>
       <StateContext.Provider
         value={{
           question,
@@ -76,16 +86,17 @@ const App = () => {
           totalQuestion,
           indexActiveQuestion,
           answer,
-          points
+          points,
         }}
       >
         <Main>
-   <Progress />
+          <Progress />
 
           {status === "loading" && <Loading />}
           {status === "error" && <Errore />}
           {status === "ready" && <StartScreen />}
           {status === "active" && <Question />}
+          {status === "finish" && <FinishQuiz />}
         </Main>
       </StateContext.Provider>
     </>

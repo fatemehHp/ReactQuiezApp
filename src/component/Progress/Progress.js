@@ -5,7 +5,7 @@ const Progress = () => {
   const{points,indexActiveQuestion,totalQuestion,status}=  useContext(StateContext)
   return (
     <div className={styles.progressContainer}>
-      <progress className={styles.progressBar} max={totalQuestion+1} value={indexActiveQuestion?indexActiveQuestion+1:0}/ >
+      <progress className={styles.progressBar} max={totalQuestion} value={indexActiveQuestion?indexActiveQuestion+1:0}/ >
       <p className={styles.progressInfo}>
         Total Points: <span>{points}</span>
       </p>

@@ -22,8 +22,9 @@ const Question = () => {
         })}
       </ul>
       {
-        answer || answer===0?<button className={styles.nextButton} onClick={()=>dispatch({type:"nextQuestion"})}>{totalQuestion===15?"Finish":"NEXT"}</button>:null
+      indexActiveQuestion===14 &&answer ?(<button className={styles.nextButton} onClick={()=>dispatch({type:"finish"})}>finish</button>):  answer || answer===0?  <button className={styles.nextButton} onClick={()=>dispatch({type:"nextQuestion"})}>Next</button>:null
       }
+   
       
     </div>
   );
